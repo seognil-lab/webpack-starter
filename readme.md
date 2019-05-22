@@ -26,7 +26,7 @@ Includes:
 
 ## 📦 Getting Started
 
-`git clone`
+`git clone https://github.com/seognil-lab/webpack-starter`
 
 `npm install`
 
