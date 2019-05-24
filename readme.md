@@ -72,11 +72,13 @@ prod: `npm build` to the dist folder 👉 `./dist/`
 
 ## 📜 References
 
-[My first time writing a Webpack Loader](https://medium.com/netscape/my-first-time-writing-a-webpack-loader-bf92d42fff57)  
 [Working with Babel 7 and Webpack](https://www.thebasement.be/working-with-babel-7-and-webpack/)  
 [How to set up Typescript with Babel and Webpack](https://medium.com/@francesco.agnoletto/how-to-set-up-typescript-with-babel-and-webpack-6fba1b6e72d5)  
 [The 100% correct way to split your chunks with Webpack](https://hackernoon.com/the-100-correct-way-to-split-your-chunks-with-webpack-f8a9df5b7758)  
-[Webpack4+Babel7 优化 70%速度](https://juejin.im/post/5c763885e51d457380771ab0)  
+[Webpack4+Babel7 优化 70%速度](https://juejin.im/post/5c763885e51d457380771ab0)
+
+[webpack-starter](https://github.com/wbkd/webpack-starter)  
+[webpack-simple-starter](https://github.com/SinanMtl/webpack-simple-starter)  
 [webpack-starter-basic](https://github.com/lifenautjoe/webpack-starter-basic)  
 [babel-typescript-react-boilerplate](https://github.com/saltyshiomix/babel-typescript-react-boilerplate)
 
