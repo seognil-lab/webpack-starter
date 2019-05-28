@@ -1,4 +1,4 @@
-import './react';
-import './vue';
-import './style';
-import './script';
+import './demo/react';
+import './demo/vue';
+import './demo/style';
+import './demo/script';
