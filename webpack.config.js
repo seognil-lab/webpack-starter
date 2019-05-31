@@ -126,7 +126,7 @@ const webpackCfg = {
             chunkFilename: '[id].[hash].bundle.css',
         }),
         new RemoveStrictPlugin(),
-        ...(mode == 'production' ? new CleanWebpackPlugin() : []),
+        ...(mode == 'production' ? [new CleanWebpackPlugin()] : []),
     ],
 
     optimization: {
