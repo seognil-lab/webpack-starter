@@ -30,8 +30,18 @@ Includes:
 
 `npm install`
 
+Modify or drop the `src/demo` folder as your wish.
+
 dev: `npm start` then open 🌐 `http://localhost:8080/`  
 prod: `npm build` to the dist folder 👉 `./dist/`
+
+**!! MUST !!**
+
+update the `name` (maybe `author` and `homepage` and more) in `package.json`
+
+update the `LICENSE` file
+update the `readme.md`
+update `.npmrc` inside the project in case you want to publish
 
 ---
 
