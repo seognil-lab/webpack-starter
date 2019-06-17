@@ -21,6 +21,8 @@ Includes:
 - Vendor Split
 - SASS/SCSS/LESS
 - CSS Autoprefixer
+- Auto ESlint (with husky)
+- Auto Prettier (with husky)
 
 ---
 
@@ -96,9 +98,11 @@ update `.npmrc` inside the project in case you want to publish
 
 ## 🕗 TODO
 
-- [ ] es/tslint config and autorun
-- [ ] Prettier config for autorun
+- [x] es/tslint config and autorun
+- [x] Prettier config for autorun
+- [x] git commit hook ( to autorun some staff )
+- [x] commitizen
+
 - [ ] test（mocha）
-- [ ] git commit hook ( to autorun some staff )
-- [ ] commitizen
 - [ ] more TS example
+- [ ] webpack optimization
