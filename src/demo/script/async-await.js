@@ -1,13 +1,15 @@
-async function* agf() {
-    await 1;
-    yield 2;
-}
+// TODO write some example // seognil LC 2019/06/17
 
-async function f() {
-    for await (let x of y) {
-        g(x);
-    }
-}
+// async function* agf() {
+//     await 1;
+//     yield 2;
+// }
+
+// async function f() {
+//     for await (let x of y) {
+//         g(x);
+//     }
+// }
 
 async function* genAnswers() {
     var stream = [Promise.resolve(4), Promise.resolve(9), Promise.resolve(12)];

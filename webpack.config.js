@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const autoprefixer = require('autoprefixer');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const DartSass = require('dart-sass');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
@@ -9,6 +11,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 // * ---------------- uglify plugin
 
 const TerserPlugin = require('terser-webpack-plugin');
+
 const uglifyJS = new TerserPlugin({
     cache: true,
     terserOptions: {
@@ -93,7 +96,7 @@ const webpackCfg = {
                     {
                         loader: 'sass-loader',
                         options: {
-                            implementation: require('dart-sass'),
+                            implementation: DartSass,
                         },
                     },
                 ],

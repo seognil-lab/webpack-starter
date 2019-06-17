@@ -1,0 +1,17 @@
+dist/
+*.*ignore
+*.log
+*.lock
+
+*.eot
+*.ttf
+*.TTF
+*.woff
+*.svg
+*.png
+*.jpg
+*.gif
+
+.browserslistrc
+
+CHANGELOG.md
