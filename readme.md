@@ -14,13 +14,13 @@ So you can also check the code and references to learn how to build your own bui
 It use the latest `Webpack 4` and `Babel 7` to ensure the best feature support **In READY**.  
 Includes:
 
--   ES6 and more
--   TypeScript
--   React/Vue
--   Auto Polyfill
--   Vendor Split
--   SASS/SCSS/LESS
--   CSS Autoprefixer
+- ES6 and more
+- TypeScript
+- React/Vue
+- Auto Polyfill
+- Vendor Split
+- SASS/SCSS/LESS
+- CSS Autoprefixer
 
 ---
 
@@ -49,34 +49,34 @@ update `.npmrc` inside the project in case you want to publish
 
 **webpack**
 
--   **webpack**: is a code bundler.
+- **webpack**: is a code bundler.
 
--   **.resolve**: handle import path in code, do the path transformation and autocompletion staff.
+- **.resolve**: handle import path in code, do the path transformation and autocompletion staff.
 
--   **.module.rules**: is a set of different types of file loaders,  
-    each type can have multiple loaders which would run _in reverse order_.  
-    such as `sass-loader -> postcss-loader -> css-loader -> style-loader`
+- **.module.rules**: is a set of different types of file loaders,  
+  each type can have multiple loaders which would run _in reverse order_.  
+  such as `sass-loader -> postcss-loader -> css-loader -> style-loader`
 
--   **.plugins** and **.optimization**: are orderless, they are like hooks, and would run in certain points of a build cycle.
+- **.plugins** and **.optimization**: are orderless, they are like hooks, and would run in certain points of a build cycle.
 
 **babel**
 
--   **babel**: is a ES6 ( and dialects like TypeScipt and React ) to ES5 compilers.  
-    (Notice that Vue has its own compiler tools.)
+- **babel**: is a ES6 ( and dialects like TypeScipt and React ) to ES5 compilers.  
+  (Notice that Vue has its own compiler tools.)
 
--   **plugins**: is a set of some partial code compilers.  
-    every plugin will handler specific syntax of code,  
-    It runs _in order_, and order matters, e.g.  
-    `syntax-dynamic-import -> proposal-decorators -> proposal-class-properties -> transform-runtime`
+- **plugins**: is a set of some partial code compilers.  
+  every plugin will handler specific syntax of code,  
+  It runs _in order_, and order matters, e.g.  
+  `syntax-dynamic-import -> proposal-decorators -> proposal-class-properties -> transform-runtime`
 
--   **presets** is a set of packaged code compilers.  
-    it runs _in reverse order_,  
-    e.g. `typescript -> react -> env`
+- **presets** is a set of packaged code compilers.  
+  it runs _in reverse order_,  
+  e.g. `typescript -> react -> env`
 
 **browserslist**
 
--   it's a browser compatibility description used by `Autoprefixer` and `Babel`  
-    In this workaround it's declared in `package.json`
+- it's a browser compatibility description used by `Autoprefixer` and `Babel`  
+  In this workaround it's declared in `package.json`
 
 ---
 
@@ -96,9 +96,9 @@ update `.npmrc` inside the project in case you want to publish
 
 ## 🕗 TODO
 
--   [ ] es/tslint config and autorun
--   [ ] Prettier config for autorun
--   [ ] test（mocha）
--   [ ] git commit hook ( to autorun some staff )
--   [ ] commitizen
--   [ ] more TS example
+- [ ] es/tslint config and autorun
+- [ ] Prettier config for autorun
+- [ ] test（mocha）
+- [ ] git commit hook ( to autorun some staff )
+- [ ] commitizen
+- [ ] more TS example

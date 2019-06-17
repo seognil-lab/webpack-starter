@@ -1,13 +1,13 @@
 function testable(isTestable) {
-    return function(target) {
-        target.isTestable = isTestable;
-    };
+  return function(target) {
+    target.isTestable = isTestable;
+  };
 }
 
 @testable(true)
 class MyClass {
-    eggs = 'DEADBEAF';
-    static log = e => console.log(e);
+  eggs = 'DEADBEAF';
+  static log = e => console.log(e);
 }
 
 console.log('##', 'class feature', 'STATIC:', MyClass.log);

@@ -5,9 +5,9 @@ let prom = new Promise(r => r());
 console.log('##', 'ES6', 'promise', prom);
 
 class CC {
-    log(...args) {
-        console.log('##', 'ES6', 'new class().log', ...args);
-    }
+  log(...args) {
+    console.log('##', 'ES6', 'new class().log', ...args);
+  }
 }
 new CC().log('param1', 'param1');
 
