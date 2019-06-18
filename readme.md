@@ -86,7 +86,8 @@ update `.npmrc` inside the project in case you want to publish
 
 - **splitChunks && dynamic import**
 
-  https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31
+  [Predictable long term caching with Webpack](https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31)  
+  [The 100% correct way to split your chunks with Webpack](https://hackernoon.com/the-100-correct-way-to-split-your-chunks-with-webpack-f8a9df5b7758)
 
 - **When to transpile**
 
@@ -97,10 +98,10 @@ update `.npmrc` inside the project in case you want to publish
     - Compacity is one of the project's purpose, not packages'
     - And it's impossible to cover every use case by a packages as open libs themself
 
-  **More**
+  **Why**  
   [sindresorhus - Enable babel-preset-env for node_modules that target newer Node versions #1125](https://github.com/facebook/create-react-app/issues/1125#issuecomment-264217076)
 
-  **Future?** _webpack-plugin-multi-loader_
+  **Future?** _webpack-plugin-multi-loader_  
   check fields in the package.json then call loader or not
 
 ---
