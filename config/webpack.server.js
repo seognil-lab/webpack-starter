@@ -1,3 +1,4 @@
+const DashboardPlugin = require('webpack-dashboard/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
@@ -18,6 +19,7 @@ const webpackConfig = {
     }),
     // TODO preload // seognil LC 2019/06/18
     // new PreloadWebpackPlugin(),
+    new DashboardPlugin(),
   ],
 };
 

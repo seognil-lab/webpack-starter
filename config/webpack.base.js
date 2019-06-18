@@ -1,11 +1,10 @@
 const autoprefixer = require('autoprefixer');
-
 const DartSass = require('dart-sass');
-
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const RemoveStrictPlugin = require('remove-strict-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const WebpackNotifierPlugin = require('webpack-notifier');
 
 const argv = require('yargs').argv;
 const projRoot = require('app-root-path').path;
@@ -125,6 +124,7 @@ const webpackCfg = {
       filename: '[name].built.css',
       chunkFilename: '[id].[hash].bundle.css',
     }),
+    new WebpackNotifierPlugin({ title: 'Webpack Build' }),
     // new RemoveStrictPlugin(),
   ],
 

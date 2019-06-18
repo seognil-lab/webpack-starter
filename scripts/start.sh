@@ -1,1 +1,1 @@
-webpack-dev-server --open
+webpack-dashboard -- webpack-dev-server --open
