@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const autoprefixer = require('autoprefixer');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const DartSass = require('dart-sass');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -8,20 +8,26 @@ const path = require('path');
 const RemoveStrictPlugin = require('remove-strict-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
+
+const argv = require('yargs').argv;
+const projRoot = require('app-root-path').path;
+
 // * ---------------- uglify plugin
 
 const TerserPlugin = require('terser-webpack-plugin');
 
-const uglifyJS = new TerserPlugin({
+const terserUglify = new TerserPlugin({
   cache: true,
   terserOptions: {
     compress: {
-      drop_console: true,
+      // drop_console: true,
     },
     output: {
       comments: false,
     },
   },
+  sourceMap: true,
 });
 
 // * ---------------- build time analyzer wrapper
@@ -32,13 +38,15 @@ const smp = new SpeedMeasurePlugin();
 
 // * ---------------- const variables
 
-const srcDir = path.resolve(__dirname, 'src');
-const distDir = path.resolve(__dirname, 'dist');
+const srcDir = path.resolve(projRoot, 'src');
+const distDir = path.resolve(projRoot, 'dist');
 
-const mode = process.env.NODE_ENV || 'development';
-const source_map = process.env.SOURCE_MAP;
+const mode = argv.mode || 'development';
+const source_map = argv.devtool || 'source-map';
 
 // * ---------------------------------------------------------------- main conifg
+
+const outputName = mode === 'production' ? '[name].[contenthash:8].js' : '[name].[hash:8].js';
 
 const webpackCfg = {
   stats: {
@@ -47,9 +55,14 @@ const webpackCfg = {
   devtool: source_map,
   mode,
 
-  entry: ['@babel/polyfill', path.resolve(srcDir, 'index.js')],
+  entry: {
+    app: path.resolve(srcDir, 'index.js'),
+  },
   output: {
-    filename: 'index.bundle.js',
+    // TODO support HtmlWebpackPlugin // seognil LC 2019/06/17
+    filename: outputName,
+    chunkFilename: outputName,
+    sourceMapFilename: 'source-map/' + outputName,
     path: distDir,
   },
 
@@ -66,6 +79,7 @@ const webpackCfg = {
         use: ['vue-loader'],
       },
       {
+        // // * transpile everything now, maybe there's a babel es6 auto-detect in the future // seognil LC 2019/06/14
         exclude: /node_modules/,
         test: /\.(js|jsx|ts|tsx)$/,
         use: ['babel-loader?cacheDirectory=true'],
@@ -119,39 +133,92 @@ const webpackCfg = {
   plugins: [
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'public', 'index.html'),
+      template: path.join(projRoot, 'public', 'index.html'),
       removeComments: true,
       collapseWhitespace: true,
       removeAttributeQuotes: true,
     }),
+    // TODO preload // seognil LC 2019/06/18
+    // new PreloadWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].built.css',
       chunkFilename: '[id].[hash].bundle.css',
     }),
     new RemoveStrictPlugin(),
-    ...(mode == 'production' ? [new CleanWebpackPlugin()] : []),
+    new CleanWebpackPlugin(),
+    // ...(mode == 'production' ? [new CleanWebpackPlugin()] : []),
   ],
 
   optimization: {
-    minimizer: [uglifyJS],
+    minimizer: [terserUglify],
+    namedModules: true,
+    namedChunks: true,
+    moduleIds: 'named',
+    chunkIds: 'named',
+    runtimeChunk: {
+      name: 'runtime',
+    },
+
+    // * tree shaking
+    usedExports: true,
+
     splitChunks: {
       chunks: 'all',
-      minSize: 30000,
-      maxSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      automaticNameDelimiter: '~',
-      name: true,
+      maxInitialRequests: Infinity,
+      maxAsyncRequests: Infinity,
+      minSize: 0,
       cacheGroups: {
+        // * promise for dynamic import
+        promise: {
+          test: /promise-polyfill/,
+          name: `npm/promise-polyfill`,
+        },
+
+        // *big npm packages
+        bigNpm: {
+          test: /[\\/]node_modules[\\/](lodash|core-js|vue|react-dom)([\\/]|$)/,
+          name: module => {
+            const moduleName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `npm/${moduleName.replace('@', '-')}`;
+          },
+          priority: -100,
+        },
+
+        // * other vendors, must be called vendors to override webpack default setting
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          priority: -10,
+          priority: -1000,
+          name: 'npm/vendors',
         },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
+
+        // TODO refactor // seognil LC 2019/06/18
+        // srcSubModule: {
+        //   test: /src[\\/](.*)?([\\/]|$)/,
+        //   name: (module, chunks, cacheGroupKey) => {
+        //     if (!module.userRequest) return;
+
+        //     const moduleRelativePath = path.relative(projRoot, module.userRequest);
+
+        //     // * not from our src, maybe matched by node_modules/XXX/src
+        //     if (!moduleRelativePath.match(/^src/)) return;
+
+        //     // * deep level 1
+        //     const output = moduleRelativePath.match(/^(.+[\\/.]){0,1}/);
+
+        //     return output ? output[0].slice(0, -1).replace('@', '-') : 'main';
+        //   },
+        // },
+
+        srcSubModule: {
+          test: /src[\\/]demo[\\/](.*)?[\\/]/,
+          name: module => {
+            // // * not from our src, maybe matched by node_modules/XXX/src
+            // if (!module.userRequest || !path.relative(projRoot, module.userRequest).match(/^src/))
+            //   return;
+
+            const moduleName = module.context.match(/[\\/]src[\\/]demo[\\/](.*?)([\\/]|$)/)[1];
+            return `src/demo/${moduleName.replace('@', '-')}`;
+          },
         },
       },
     },
