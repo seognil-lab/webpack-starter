@@ -78,7 +78,30 @@ update `.npmrc` inside the project in case you want to publish
 **browserslist**
 
 - it's a browser compatibility description used by `Autoprefixer` and `Babel`  
-  In this workaround it's declared in `package.json`
+  In this workaround it's declared in `.browserslistrc`
+
+---
+
+## Best practice
+
+- **splitChunks && dynamic import**
+
+  https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31
+
+- **When to transpile**
+
+  - **package**: rollup, basic transpile, output esm/cjs/else
+
+  - **project**: webpack, transpile everything for browser
+    - Because you can't control every third-party lib or ask maintainers to do the patch
+    - Compacity is one of the project's purpose, not packages'
+    - And it's impossible to cover every use case by a packages as open libs themself
+
+  **More**
+  [sindresorhus - Enable babel-preset-env for node_modules that target newer Node versions #1125](https://github.com/facebook/create-react-app/issues/1125#issuecomment-264217076)
+
+  **Future?** _webpack-plugin-multi-loader_
+  check fields in the package.json then call loader or not
 
 ---
 

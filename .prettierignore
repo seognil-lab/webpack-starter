@@ -1,4 +1,6 @@
 dist/
+scripts/
+
 *.*ignore
 *.log
 *.lock

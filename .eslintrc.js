@@ -19,6 +19,15 @@ module.exports = {
       files: ['test/**/*.js', '*.test.js'],
       env: { jest: true, mocha: true },
     },
+    {
+      files: ['config/*.js', 'webpack.*.js'],
+      rules: {
+        'import/no-extraneous-dependencies': false,
+        'import/no-unresolved': false,
+        'import/no-dynamic-require': false,
+        'require-jsdoc': 'off',
+      },
+    },
   ],
 
   parserOptions: {

@@ -4,4 +4,4 @@ export default () =>
       /* webpackChunkName: "src/demo" */
       './demo'
     );
-  }, 10000);
+  }, 1000);
