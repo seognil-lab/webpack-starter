@@ -40,7 +40,7 @@ const webpackCfg = {
   output: {
     filename: outputName,
     chunkFilename: outputName,
-    sourceMapFilename: 'source-map/' + outputName,
+    sourceMapFilename: `source-map/${outputName}.map`,
     path: distDir,
   },
 
