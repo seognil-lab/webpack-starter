@@ -20,7 +20,7 @@ module.exports = {
       env: { jest: true, mocha: true },
     },
     {
-      files: ['config/**/*.js'],
+      files: ['config/**/*.js', 'webpack.*.js'],
       rules: {
         'import/no-extraneous-dependencies': false,
         'import/no-unresolved': false,
