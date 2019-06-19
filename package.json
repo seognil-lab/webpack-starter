@@ -13,7 +13,7 @@
     "start": "npx scripty",
     "format:all": "npx scripty",
     "format:staged": "npx scripty",
-    "analyze": "source-map-explorer ./dist/**/*.js"
+    "analyze": "source-map-explorer './dist/**/*.js'"
   },
   "lint-staged": {
     "*.js": "eslint --fix"

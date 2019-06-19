@@ -21,7 +21,7 @@ const source_map = argv.devtool || 'source-map';
 
 // * for production long term cache, use `contenthash`
 // * for HtmlWebpackPlugin, simply use `hash`
-const outputName = mode === 'production' ? '[name].[contenthash:8].js' : '[name].[hash:8].js';
+const outHash = mode === 'production' ? '[contenthash:8]' : '[hash:8]';
 
 const webpackCfg = {
   stats: {
@@ -38,9 +38,9 @@ const webpackCfg = {
     app: path.resolve(srcDir, 'index.js'),
   },
   output: {
-    filename: outputName,
-    chunkFilename: outputName,
-    sourceMapFilename: `source-map/${outputName}.map`,
+    filename: `[name].${outHash}.js`,
+    chunkFilename: `[name].${outHash}.js`,
+    sourceMapFilename: `source-map/[name].${outHash}.js.map`,
     path: distDir,
   },
 
@@ -125,10 +125,14 @@ const webpackCfg = {
   plugins: [
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
+      // TODO optimize  // seognil LC 2019/06/19
       filename: '[name].built.css',
-      chunkFilename: '[id].[hash].bundle.css',
+      chunkFilename: `[id].${outHash}.css`,
     }),
-    new WebpackNotifierPlugin({ title: 'Webpack Build' }),
+    new WebpackNotifierPlugin({
+      title: 'Webpack Build',
+      excludeWarnings: true,
+    }),
     // new RemoveStrictPlugin(),
   ],
 
@@ -153,56 +157,32 @@ const webpackCfg = {
       maxAsyncRequests: Infinity,
       minSize: 0,
       cacheGroups: {
-        // * promise for dynamic import
-        promise: {
-          test: /promise-polyfill/,
-          name: `npm/promise-polyfill`,
-        },
-
-        // *big npm packages
-        bigNpm: {
-          test: /[\\/]node_modules[\\/](lodash|core-js|vue|react-dom)([\\/]|$)/,
-          name: module => {
-            const moduleName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-            return `npm/${moduleName.replace('@', '-')}`;
-          },
-          priority: -100,
-        },
-
         // * other vendors, must be called vendors to override webpack default setting
+        // * automatic split everything // seognil LC 2019/06/19
         vendors: {
-          test: /[\\/]node_modules[\\/]/,
+          test: /./,
           priority: -1000,
-          name: 'npm/vendors',
-        },
-
-        // TODO refactor // seognil LC 2019/06/18
-        // srcSubModule: {
-        //   test: /src[\\/](.*)?([\\/]|$)/,
-        //   name: (module, chunks, cacheGroupKey) => {
-        //     if (!module.userRequest) return;
-
-        //     const moduleRelativePath = path.relative(projRoot, module.userRequest);
-
-        //     // * not from our src, maybe matched by node_modules/XXX/src
-        //     if (!moduleRelativePath.match(/^src/)) return;
-
-        //     // * deep level 1
-        //     const output = moduleRelativePath.match(/^(.+[\\/.]){0,1}/);
-
-        //     return output ? output[0].slice(0, -1).replace('@', '-') : 'main';
-        //   },
-        // },
-
-        srcSubModule: {
-          test: /src[\\/]demo[\\/](.*)?[\\/]/,
+          // name: 'npm/vendors',
           name: module => {
-            // // * not from our src, maybe matched by node_modules/XXX/src
-            // if (!module.userRequest || !path.relative(projRoot, module.userRequest).match(/^src/))
-            //   return;
+            const context = module.context;
 
-            const moduleName = module.context.match(/[\\/]src[\\/]demo[\\/](.*?)([\\/]|$)/)[1];
-            return `src/demo/${moduleName.replace('@', '-')}`;
+            if (context.match(/[\\/]node_modules[\\/]/)) {
+              // * ---- npm package
+
+              const moduleName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+              return `npm/${moduleName.replace('@', '')}`;
+            } else if (context.match(/[\\/]src\b/)) {
+              // * ---- src package
+
+              const moduleRelativePath = path.relative(projRoot, context);
+              if (moduleRelativePath.match(/^src./)) {
+                // * max deep 2
+                return moduleRelativePath.match(/^src([\\/]+[^\\/.]+){1,2}/)[0];
+              }
+
+              // * '/src' folder
+              return 'src/index';
+            }
           },
         },
       },
