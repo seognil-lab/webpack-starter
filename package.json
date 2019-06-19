@@ -8,11 +8,11 @@
     "serve": "npm run start; # it's alias",
     "server": "npm run start; # it's alias",
     "format": "npm run format:all; # it's alias",
-    "build:dev": "scripty",
-    "build:prod": "scripty",
-    "start": "scripty",
-    "format:all": "scripty",
-    "format:staged": "scripty",
+    "build:dev": "npx scripty",
+    "build:prod": "npx scripty",
+    "start": "npx scripty",
+    "format:all": "npx scripty",
+    "format:staged": "npx scripty",
     "analyze": "source-map-explorer ./dist/**/*.js"
   },
   "lint-staged": {

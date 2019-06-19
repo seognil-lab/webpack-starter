@@ -113,6 +113,8 @@ update `.npmrc` inside the project in case you want to publish
 [The 100% correct way to split your chunks with Webpack](https://hackernoon.com/the-100-correct-way-to-split-your-chunks-with-webpack-f8a9df5b7758)  
 [Webpack4+Babel7 优化 70%速度](https://juejin.im/post/5c763885e51d457380771ab0)
 
+[The Correct Way to Import Lodash Libraries - A Benchmark](https://www.blazemeter.com/blog/the-correct-way-to-import-lodash-libraries-a-benchmark/)
+
 [webpack-starter](https://github.com/wbkd/webpack-starter)  
 [webpack-simple-starter](https://github.com/SinanMtl/webpack-simple-starter)  
 [webpack-starter-basic](https://github.com/lifenautjoe/webpack-starter-basic)  

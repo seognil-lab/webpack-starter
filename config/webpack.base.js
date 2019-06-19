@@ -63,7 +63,8 @@ const webpackCfg = {
         // // * transpile everything now, maybe there's a babel es6 auto-detect in the future // seognil LC 2019/06/14
         exclude: /node_modules/,
         test: /\.(js|jsx|ts|tsx)$/,
-        use: ['babel-loader?cacheDirectory=true'],
+        // use: ['babel-loader?cacheDirectory=true'],
+        use: ['babel-loader'],
       },
       {
         test: /\.(scss|sass|less|css)$/,

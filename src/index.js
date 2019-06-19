@@ -3,7 +3,7 @@ import 'promise-polyfill';
 
 // * -------------------------------- async load app, wait for polyfill check
 
-import loadApp from './app-loader';
+import loadApp from './load-app';
 
 // * -------------------------------- polyfill check then load app
 
@@ -24,8 +24,8 @@ if (
   loadApp();
 } else {
   import(
-    /* webpackChunkName: "src/polyfill-loader" */
-    './polyfill-loader'
+    /* webpackChunkName: "src/load-polyfill" */
+    './load-polyfill'
   ).then(() => {
     loadApp();
   });
