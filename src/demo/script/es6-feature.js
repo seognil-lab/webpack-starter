@@ -15,4 +15,4 @@ let arrInc = [1, 2, 3, 4].includes(1);
 console.log('##', 'ES6', '[1, 2, 3, 4].includes(1)', arrInc);
 
 let arrFrom = Array.from({ length: 9 }, (e, i) => i);
-console.warn('##', 'ES6', 'Array.from({ length: 9 }, (e, i) => i)', ...arrFrom);
+console.log('##', 'ES6', 'Array.from({ length: 9 }, (e, i) => i)', ...arrFrom);
