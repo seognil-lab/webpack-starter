@@ -7,8 +7,8 @@ const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 
 const task = argv.liveReload ? 'server' : argv.mode === 'production' ? 'prod' : 'dev';
-const subConfig = require(`./config/webpack.${task}.js`);
-const baseConfig = require(`./config/webpack.base.js`);
+const subConfig = require(`./webpack.${task}.js`);
+const baseConfig = require(`./webpack.base.js`);
 
 // * ---------------- merge config and `build time` analyzer
 
