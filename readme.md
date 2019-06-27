@@ -18,7 +18,7 @@ Includes:
 - TypeScript
 - React/Vue
 - Auto Polyfill
-- Vendor Split
+- Bundle Split
 - SASS/SCSS/LESS
 - CSS Autoprefixer
 - Auto ESlint (with husky)

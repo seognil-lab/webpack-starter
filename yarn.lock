@@ -1248,6 +1248,14 @@ app-root-path@^2.2.1:
   resolved "https://registry.npm.taobao.org/app-root-path/download/app-root-path-2.2.1.tgz#d0df4a682ee408273583d43f6f79e9892624bc9a"
   integrity sha1-0N9KaC7kCCc1g9Q/b3npiSYkvJo=
 
+approx-fix@^1.0.0, approx-fix@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npm.taobao.org/approx-fix/download/approx-fix-1.0.2.tgz#4a2b82d587cc67ae9a6f1371dfd2cccfc35ab8f6"
+  integrity sha1-SiuC1YfMZ66abxNx39LMz8NauPY=
+  dependencies:
+    is-equal-approx "^1.0.0"
+    lodash "^4.17.11"
+
 aproba@^1.0.3, aproba@^1.1.1:
   version "1.2.0"
   resolved "https://registry.npm.taobao.org/aproba/download/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
@@ -1512,7 +1520,7 @@ blob@0.0.5:
   resolved "https://registry.npm.taobao.org/blob/download/blob-0.0.5.tgz#d680eeef25f8cd91ad533f5b01eed48e64caf683"
   integrity sha1-1oDu7yX4zZGtUz9bAe7UjmTK9oM=
 
-bluebird@^3.1.1, bluebird@^3.5.4, bluebird@^3.5.5:
+bluebird@^3.1.1, bluebird@^3.5.5:
   version "3.5.5"
   resolved "https://registry.npm.taobao.org/bluebird/download/bluebird-3.5.5.tgz#a8d0afd73251effbbd5fe384a77d73003c17a71f"
   integrity sha1-qNCv1zJR7/u9X+OEp31zADwXpx8=
@@ -2729,6 +2737,14 @@ dot-prop@^4.1.1:
   integrity sha1-HxngwuGqDjJ5fEl5nyg3rGr2nFc=
   dependencies:
     is-obj "^1.0.0"
+
+drag-resize-rotate@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/drag-resize-rotate/download/drag-resize-rotate-1.0.1.tgz#39e16a1803d611fb0c0c93e1af3b8e3259467b3c"
+  integrity sha1-OeFqGAPWEfsMDJPhrzuOMllGezw=
+  dependencies:
+    approx-fix "^1.0.2"
+    vector-math-fp "^1.0.3"
 
 duplexify@^3.4.2, duplexify@^3.6.0:
   version "3.7.1"
@@ -4294,6 +4310,13 @@ is-directory@^0.3.1:
   version "0.3.1"
   resolved "https://registry.npm.taobao.org/is-directory/download/is-directory-0.3.1.tgz#61339b6f2475fc772fd9c9d83f5c8575dc154ae1"
   integrity sha1-YTObbyR1/Hcv2cnYP1yFddwVSuE=
+
+is-equal-approx@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.npm.taobao.org/is-equal-approx/download/is-equal-approx-1.0.2.tgz#b08e3e4ebc1a732e8e4b53b738435639efcd329f"
+  integrity sha1-sI4+Trwacy6OS1O3OENWOe/NMp8=
+  dependencies:
+    lodash "^4.17.11"
 
 is-extendable@^0.1.0, is-extendable@^0.1.1:
   version "0.1.1"
@@ -7951,6 +7974,14 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npm.taobao.org/vary/download/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vector-math-fp@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npm.taobao.org/vector-math-fp/download/vector-math-fp-1.0.3.tgz#817a28622e0a77410823983c6f4d675c27da146a"
+  integrity sha1-gXooYi4Kd0EII5g8b01nXCfaFGo=
+  dependencies:
+    approx-fix "^1.0.0"
+    lodash "^4.17.11"
 
 vendors@^1.0.0:
   version "1.0.3"

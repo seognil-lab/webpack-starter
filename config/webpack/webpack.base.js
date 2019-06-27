@@ -49,6 +49,10 @@ const webpackCfg = {
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     mainFiles: ['index', 'main'],
+
+    // * force using `main` (cjs version) in `package.json` of packages
+    // * avoiding other Modular specification (e.g. esm with ES6 codes)
+    mainFields: ['main'],
   },
 
   module: {
