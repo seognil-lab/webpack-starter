@@ -24,8 +24,9 @@ const webpackConfig = {
       // include: 'asyncChunks',
       // fileWhitelist: [/\.files/, /\.to/, /\.include/],
 
-      // * exclude, chunkName is from splitChunk
-      fileBlacklist: [/(core-js|^source-map[\\/])/],
+      // * exclude source-map
+      // * exclude your dynamic components, name is from splitChunk
+      fileBlacklist: [/(^source-map[\\/]|demo)/],
     }),
   ],
 };

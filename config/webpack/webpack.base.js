@@ -9,7 +9,58 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 const argv = require('yargs').argv;
 const projRoot = require('app-root-path').path;
 
-// * ---------------- const variables
+// * ================================================================================ chunk name calculator
+
+const pathRegMaker = str => new RegExp(str.replace(/[/]/g, '[\\\\/]'));
+
+const pathReg = {
+  node_modules: pathRegMaker(`/node_modules/`),
+  package: pathRegMaker(`/node_modules/(.*?)(/|$)`),
+  lodash: pathRegMaker(`/node_modules/lodash`),
+  lodashmin: pathRegMaker(`lodash.min`),
+  lodashfp: pathRegMaker(`lodash/fp`),
+};
+
+// * ----------------------------------------------------------------
+
+const chunkNameCalc = module => {
+  const context = module.context;
+
+  // * -------------------------------- node_modules
+
+  if (context.match(pathReg.node_modules)) {
+    // * ---------------- if using lodash/fp, it will load lodash.min
+
+    if (context.match(pathReg.lodash)) {
+      if (module.resource.match(pathReg.lodashmin)) {
+        return 'npm/lodash.min';
+      }
+      if (module.resource.match(pathReg.lodashfp)) {
+        return 'npm/lodashfp';
+      }
+    }
+
+    // * ---------------- other npm packages, split by name or scope
+
+    const moduleName = context.match(pathReg.package)[1];
+    return `npm/${moduleName.replace('@', '')}`;
+  }
+
+  // * -------------------------------- src files
+
+  if (context.match(/[\\/]src\b/)) {
+    const moduleRelativePath = path.relative(projRoot, context);
+    if (moduleRelativePath.match(/^src./)) {
+      // * max deep 2
+      return moduleRelativePath.match(/^src([\\/]+[^\\/.]+){1,2}/)[0];
+    }
+
+    // * '/src' folder
+    return 'src/index';
+  }
+};
+
+// * ================================================================================ const variables
 
 const srcDir = path.resolve(projRoot, 'src');
 const distDir = path.resolve(projRoot, 'dist');
@@ -17,7 +68,7 @@ const distDir = path.resolve(projRoot, 'dist');
 const mode = argv.mode || 'development';
 const source_map = argv.devtool || 'source-map';
 
-// * ---------------------------------------------------------------- main conifg
+// * ================================================================================ main conifg
 
 // * for production long term cache, use `contenthash`
 // * for HtmlWebpackPlugin, simply use `hash`
@@ -50,6 +101,12 @@ const webpackCfg = {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     mainFiles: ['index', 'main'],
 
+    alias: {
+      // ! `lodash/fp` will load `lodash.min` any way,
+      // * point `lodash` to `lodash.min`, so this will prevent load both `lodash` and `lodash.min`
+      lodash$: require.resolve('lodash/lodash.min.js'),
+    },
+
     // * force using `main` (cjs version) in `package.json` of packages
     // * avoiding other Modular specification (e.g. esm with ES6 codes)
     mainFields: ['main'],
@@ -63,8 +120,13 @@ const webpackCfg = {
         use: ['vue-loader'],
       },
       {
-        // TODO later // seognil LC 2019/06/18
-        // // * transpile everything now, maybe there's a babel es6 auto-detect in the future // seognil LC 2019/06/14
+        // ! seems almost every npm package provides transpiled ES5 cjs codes, so it's safe,
+        // * include some of them if there are any issues
+        // * https://github.com/babel/babel/issues/8672#issuecomment-420168497
+
+        // * maybe it would have a `babel es6 auto-detect blahblah` in the future // seognil LC 2019/06/14
+        // * https://github.com/facebook/create-react-app/issues/1125#issuecomment-264217076
+
         exclude: /node_modules/,
         test: /\.(js|jsx|ts|tsx)$/,
 
@@ -76,7 +138,7 @@ const webpackCfg = {
       {
         test: /\.(scss|sass|less|css)$/,
         use: [
-          // * ---------------- load style, choose one
+          // * ---------------- load style, pick one
 
           // * splitted css file
           MiniCssExtractPlugin.loader,
@@ -167,33 +229,13 @@ const webpackCfg = {
           test: /./,
           priority: -1000,
           // name: 'npm/vendors',
-          name: module => {
-            const context = module.context;
-
-            if (context.match(/[\\/]node_modules[\\/]/)) {
-              // * ---- npm package
-
-              const moduleName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-              return `npm/${moduleName.replace('@', '')}`;
-            } else if (context.match(/[\\/]src\b/)) {
-              // * ---- src package
-
-              const moduleRelativePath = path.relative(projRoot, context);
-              if (moduleRelativePath.match(/^src./)) {
-                // * max deep 2
-                return moduleRelativePath.match(/^src([\\/]+[^\\/.]+){1,2}/)[0];
-              }
-
-              // * '/src' folder
-              return 'src/index';
-            }
-          },
+          name: chunkNameCalc,
         },
       },
     },
   },
 };
 
-// * ----------------------------------------------------------------  output
+// * ================================================================================  output
 
 module.exports = webpackCfg;

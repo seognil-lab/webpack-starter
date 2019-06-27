@@ -10,19 +10,19 @@
 setTimeout(() => {
   console.log('## load react demo');
   import(/* webpackChunkName: "DEADBEAF" */ './react');
-}, 100);
+}, 10);
 
 setTimeout(() => {
   console.log('## load style demo');
   import(/* webpackChunkName: "DEADBEAF" */ './style');
-}, 200);
+}, 20);
 
 setTimeout(() => {
   console.log('## load vue demo');
   import(/* webpackChunkName: "DEADBEAF" */ './vue');
-}, 300);
+}, 30);
 
 setTimeout(() => {
   console.log('## load script demo');
   import(/* webpackChunkName: "DEADBEAF" */ './script');
-}, 400);
+}, 40);

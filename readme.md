@@ -7,6 +7,8 @@ It works like [vue-cli](https://github.com/vuejs/vue-cli) or [create-react-app](
 But it is build from scratch. (well basiclly... just some tool installed and their configs, 😆)  
 So you can also check the code and references to learn how to build your own build kit. 🖖
 
+[**ONLINE DEMO of supported features**](https://wonderful-kepler-438e2e.netlify.com/)
+
 ---
 
 ## ⭐️ Main Features Supported
@@ -18,7 +20,7 @@ Includes:
 - TypeScript
 - React/Vue
 - Auto Polyfill
-- Bundle Split
+- src/vendor split (optimized)
 - SASS/SCSS/LESS
 - CSS Autoprefixer
 - Auto ESlint (with husky)
@@ -132,3 +134,4 @@ update `.npmrc` inside the project in case you want to publish
 - [ ] test（mocha）
 - [ ] more TS example
 - [ ] webpack optimization
+- [ ] webpack chunk split CDN optimization https://zhuanlan.zhihu.com/p/48461259
