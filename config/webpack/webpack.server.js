@@ -9,7 +9,7 @@ const webpackConfig = {
   plugins: [
     // * HtmlWebpackPlugin move to separated files for works with SMP
 
-    // * Dashboard may called by scripts/start.sh
+    // * Dashboard may called by `npm run start`
     new DashboardPlugin(),
   ],
 };

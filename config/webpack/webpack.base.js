@@ -72,7 +72,7 @@ const source_map = argv.devtool || 'source-map';
 
 // * for production long term cache, use `contenthash`
 // * for HtmlWebpackPlugin, simply use `hash`
-const outHash = mode === 'production' ? '[contenthash:8]' : '[hash:8]';
+const outHash = mode === 'production' ? '[contenthash:8]' : '';
 
 const webpackCfg = {
   stats: {
@@ -127,10 +127,12 @@ const webpackCfg = {
         // * maybe it would have a `babel es6 auto-detect blahblah` in the future // seognil LC 2019/06/14
         // * https://github.com/facebook/create-react-app/issues/1125#issuecomment-264217076
 
-        exclude: /node_modules/,
+        // * babel 7 will exclude node_modules anyway, so it's unnecessery
+        // exclude: /node_modules/,
+
         test: /\.(js|jsx|ts|tsx)$/,
 
-        // ! seems confilt with webpack cache, so disable it
+        // ! seems confilt with webpack cache, so disable the cache
         // use: ['babel-loader?cacheDirectory=true'],
 
         use: ['babel-loader'],
@@ -172,7 +174,7 @@ const webpackCfg = {
         ],
       },
       {
-        test: /\.(eot|ttf|TTF|woff|svg|png|jpg|gif)$/i,
+        test: /\.(eot|ttf|TTF|woff|woff2|svg|png|jpg|gif)$/i,
         use: [
           {
             loader: 'url-loader',
@@ -208,7 +210,7 @@ const webpackCfg = {
 
     namedModules: true,
     namedChunks: true,
-    moduleIds: 'named',
+    moduleIds: 'hashed',
     chunkIds: 'named',
     runtimeChunk: {
       name: 'runtime',
