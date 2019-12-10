@@ -22,10 +22,11 @@ module.exports = {
     {
       files: ['config/**/*.js', 'webpack.*.js'],
       rules: {
-        'import/no-extraneous-dependencies': false,
-        'import/no-unresolved': false,
-        'import/no-dynamic-require': false,
+        'import/no-extraneous-dependencies': 0,
+        'import/no-unresolved': 0,
+        'import/no-dynamic-require': 0,
         'require-jsdoc': 'off',
+        'consistent-return': 0,
       },
     },
   ],
@@ -43,10 +44,10 @@ module.exports = {
 
     // TODO quick fix for react, check later // seognil LC 2019/06/17
 
-    'react/prefer-stateless-function': [false],
-    'react/jsx-indent': [false],
-    'react/jsx-indent-props': [false],
-    'react/jsx-filename-extension': [true, { extensions: ['.js', '.jsx'] }],
+    'react/prefer-stateless-function': [0],
+    'react/jsx-indent': [0],
+    'react/jsx-indent-props': [0],
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/prefer-stateless-function': ['warn'],
     'react/jsx-one-expression-per-line': ['warn'],
   },
