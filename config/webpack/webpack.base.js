@@ -6,7 +6,7 @@ const RemoveStrictPlugin = require('remove-strict-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
-const argv = require('yargs').argv;
+const { argv } = require('yargs');
 const projRoot = require('app-root-path').path;
 
 // * ================================================================================ chunk name calculator
@@ -24,7 +24,7 @@ const pathReg = {
 // * ----------------------------------------------------------------
 
 const chunkNameCalc = module => {
-  const context = module.context;
+  const { context } = module;
 
   // * -------------------------------- node_modules
 
@@ -66,7 +66,7 @@ const srcDir = path.resolve(projRoot, 'src');
 const distDir = path.resolve(projRoot, 'dist');
 
 const mode = argv.mode || 'development';
-const source_map = argv.devtool || 'source-map';
+const sourceMap = argv.devtool || 'source-map';
 
 // * ================================================================================ main conifg
 
@@ -80,7 +80,7 @@ const webpackCfg = {
   },
 
   // * default, should be overwrite
-  devtool: source_map,
+  devtool: sourceMap,
   mode,
 
   // * -------------------------------- input output
@@ -181,6 +181,9 @@ const webpackCfg = {
             options: {
               limit: 8192,
               fallback: 'file-loader',
+
+              // * for file-loader for image
+              esModule: false,
             },
           },
         ],
