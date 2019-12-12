@@ -1,20 +1,15 @@
-// TODO write some example // seognil LC 2019/06/17
+(async () => {
+  const url = 'https://jsonplaceholder.typicode.com/todos/1';
+  const result = await fetch(url).then(res => res.json());
+  console.log('##', 'ASYNC fetch todo', result);
+})();
 
-// async function* agf() {
-//     await 1;
-//     yield 2;
-// }
-
-// async function f() {
-//     for await (let x of y) {
-//         g(x);
-//     }
-// }
+// * ----------------
 
 async function* genAnswers() {
-  var stream = [Promise.resolve(4), Promise.resolve(9), Promise.resolve(12)];
-  var total = 0;
-  for await (let val of stream) {
+  const stream = [Promise.resolve(4), Promise.resolve(9), Promise.resolve(12)];
+  let total = 0;
+  for await (const val of stream) {
     total += await val;
     yield total;
   }
@@ -29,9 +24,9 @@ function forEach(ai, fn) {
   });
 }
 
-var output = 0;
+let output = 0;
 forEach(genAnswers(), function(val) {
   output += val.value;
 }).then(function() {
-  console.log('##', 'ASYNC', output);
+  console.log('##', 'ASYNC Generator', output);
 });

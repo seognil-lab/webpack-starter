@@ -16,7 +16,7 @@ module.exports = {
       {
         helpers: true,
         corejs: false,
-        regenerator: false,
+        regenerator: true,
       },
     ],
   ],
