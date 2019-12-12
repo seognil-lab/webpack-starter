@@ -26,7 +26,6 @@ module.exports = {
         'import/no-unresolved': 0,
         'import/no-dynamic-require': 0,
         'require-jsdoc': 'off',
-        'consistent-return': 0,
       },
     },
   ],
@@ -41,6 +40,9 @@ module.exports = {
   rules: {
     'no-console': ['warn'],
     'no-unused-vars': ['warn'],
+
+    'consistent-return': 1,
+    'no-restricted-syntax': 1,
 
     // TODO quick fix for react, check later // seognil LC 2019/06/17
 
