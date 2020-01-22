@@ -16,7 +16,7 @@ So you can also check the code and references to learn how to build your own bui
 It use the latest `Webpack 4` and `Babel 7` to ensure the best feature support **In READY**.  
 Includes:
 
-- ES6 and more
+- ESNext
 - TypeScript
 - React/Vue
 - Auto Polyfill

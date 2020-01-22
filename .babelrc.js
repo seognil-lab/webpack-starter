@@ -5,6 +5,8 @@ module.exports = {
     '@babel/plugin-syntax-dynamic-import',
     ['@babel/plugin-proposal-decorators', { legacy: true }],
     ['@babel/plugin-proposal-class-properties', { loose: true }],
+    '@babel/plugin-proposal-nullish-coalescing-operator',
+    '@babel/plugin-proposal-optional-chaining',
 
     // // * # Polyfill Method 1 #
     // ['@babel/plugin-transform-runtime', { corejs: 3 }],
