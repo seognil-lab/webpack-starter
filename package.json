@@ -116,7 +116,7 @@
     "@babel/runtime-corejs3": "^7.8.3",
     "core-js": "^3.6.4",
     "drag-resize-rotate": "^1.0.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "promise-polyfill": "^8.1.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
